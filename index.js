@@ -1,0 +1,12 @@
+const {app,startServer} = require('./app/config.js')
+app.use(require('./model/auth.js'))
+app.use(require('./model/management_user.js'))
+app.use(require('./model/master_ship.js'))
+app.use(require('./model/master_port.js'))
+app.use(require('./model/master_berth.js'))
+app.use(require('./model/master_cargo.js'))
+app.use(require('./model/master.js'))
+app.use(require('./model/sscl_transaction.js'))
+app.use(require('./model/negative_feedback.js'))
+startServer()
+  

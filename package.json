@@ -1,0 +1,34 @@
+{
+  "name": "vrapi_jet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js --omit=dev",
+    "online": "ngrok http 7000 --config \"C:/ngrok/config19.yml\"",
+    "stop": "pm2 stop Pertamina_API",
+    "aws": "sudo pm2 stop 'PERTAMINA' && sudo pm2 start index.js --name 'PERTAMINA'",
+    "dev": "webpack serve index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vembri Riyan Diansah",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "expressjs": "^1.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "localtunnel": "^2.0.2",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.5",
+    "pg": "^8.12.0",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "devDependencies": {
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
