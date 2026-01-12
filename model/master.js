@@ -1,7 +1,7 @@
 const {router,validation, Timestamp} = require('../app/main')
 const DBP = require('../app/connection.js').DBP()
 
-router.get('/sscl_master',validation,async(req,res)=>{
+router.get('/sscl-master',validation,async(req,res)=>{
     try {
         let master = {ship:[],port:[],berth:[],cargo:[]}
         try {

@@ -6,12 +6,15 @@ require('dotenv').config();
 const { Pool } = require('pg');
 const secretKey = 'pertaminamaju'; // Store this in env variables, not in code
 const email = require('../app/emailsender.js')
-
+router.get('/test',validation,async(req,res)=>{
+    let {rows} = await DBP.query(`select * from production.users`)
+    res.status(200).json(rows)
+})
 router.get('/send_email',validation,async(req,res)=>{
     let response = await email.sendEmail()
     res.status(200).json(response)
 })
-router.post('/authorization-checking', validation,async (req, res) =>{
+router.post('/authorization-checking',async (req, res) =>{
     let response = {}
     req.body.email = req.body.email.replace(/[=!;]/g, "")
     req.body.password = req.body.password.replace(/[=!;]/g, "")
@@ -19,7 +22,7 @@ router.post('/authorization-checking', validation,async (req, res) =>{
         let {rows} = await DBP.query(`select full_name,position,email,password,role from production.users where email=$1`,[req.body.email])
         let is_valid = await checkPassword(req.body.password,rows[0].password)
         let user = rows[0]
-        let userjwt = {authenticated:true,full_name:user.full_name,role:user.role,position:user.position}
+        let userjwt = {authenticated:true,full_name:user.full_name,email:user.email,role:user.role,position:user.position}
         const token = jwt.sign(userjwt, secretKey, { expiresIn: '6h' });
         if(is_valid){
             response.authenticated = true

@@ -6,7 +6,6 @@ var path = require('path');
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'http://3.27.42.150'
 ];
 
 const corsOptions = {

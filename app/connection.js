@@ -4,14 +4,17 @@ module.exports = {
     DBP: () => {
         try{
             return new Pool({
-                host: 'pertamina.c1c6cu2im0v3.ap-southeast-2.rds.amazonaws.com',
+                // host: 'pertamina-db.c1c6cu2im0v3.ap-southeast-2.rds.amazonaws.com',
+                host: 'localhost',
                 user: 'postgres',
-                password: 'PPPertamina1',
+                password : 'postgres',
+                // password: 'PPPertamina1',
                 database: 'pertamina',
                 port: 5432,
-                ssl: {
-                    rejectUnauthorized: false // Railway butuh SSL
-                }
+                ssl :false
+                // ssl: {
+                //     rejectUnauthorized: false // Railway butuh SSL
+                // }
             });
         }catch(err){
             return err

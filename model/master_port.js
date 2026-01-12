@@ -12,7 +12,7 @@ router.get('/total-master-port',validation,async(req,res)=>{
 
 router.get('/list-master-port',validation,async(req,res)=>{
     try {
-        let {rows} = await DBP.query('select port_id,port_name,port_code from production.master_port where deleted_at IS NULL')
+        let {rows} = await DBP.query('select port_id,port_name,port_code from production.master_port where deleted_at IS NULL order by port_name')
         res.status(200).json(rows)
     } catch (error) {
         res.status(200).json([])
@@ -21,7 +21,7 @@ router.get('/list-master-port',validation,async(req,res)=>{
 
 router.post('/add-master-port',validation,async(req,res)=>{
     try {
-        let {rowCount} = await DBP.query('Insert into production.master_port(port_name,port_code) values($1,$2)',[req.body.port_name,req.body.port_code])
+        let {rowCount} = await DBP.query('Insert into production.master_port(port_name,port_code) values($1,$2)',[req.body.port_name.toUpperCase(),req.body.port_code])
         res.status(200).json({affected:rowCount,message:''})
     } catch (error) {
         res.status(200).json({affected:-1,message:'Data Not Found'+error})
@@ -30,7 +30,7 @@ router.post('/add-master-port',validation,async(req,res)=>{
 
 router.post('/edit-master-port',validation,async(req,res)=>{
     try {
-        let {rowCount} = await DBP.query('UPDATE production.master_port set port_name=$1,port_code=$2 where port_id=$3',[req.body.port_name,req.body.port_code,req.body.port_id])
+        let {rowCount} = await DBP.query('UPDATE production.master_port set port_name=$1,port_code=$2 where port_id=$3',[req.body.port_name.toUpperCase(),req.body.port_code,req.body.port_id])
         res.status(200).json({affected:rowCount})
     } catch (error) {
         res.status(200).json({affected:-1,message:error})

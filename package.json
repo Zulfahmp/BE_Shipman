@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js --omit=dev",
+    "start": "nodemon index.js --omit=dev",
     "online": "ngrok http 7000 --config \"C:/ngrok/config19.yml\"",
-    "stop": "pm2 stop Pertamina_API",
+    "stop": "sudo pm2 stop 'PERTAMINA'",
+    "initaws":"sudo pm2 start index.js --name 'PERTAMINA'",
     "aws": "sudo pm2 stop 'PERTAMINA' && sudo pm2 start index.js --name 'PERTAMINA'",
     "dev": "webpack serve index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,6 +26,7 @@
     "multer": "^2.0.2",
     "nodemailer": "^7.0.5",
     "pg": "^8.12.0",
+    "pg-format": "^1.0.4",
     "webpack-dev-server": "^5.0.4"
   },
   "devDependencies": {

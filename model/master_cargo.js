@@ -13,7 +13,7 @@ router.get('/total-master-cargo',validation,async(req,res)=>{
 
 router.get('/list-master-cargo',validation,async(req,res)=>{
     try {
-        let {rows} = await DBP.query('select cargo_id,cargo_name,cargo_code from production.master_cargo where deleted_at IS NULL')
+        let {rows} = await DBP.query('select cargo_id,cargo_name,cargo_code from production.master_cargo where deleted_at IS NULL order by cargo_name')
         res.status(200).json(rows)
     } catch (error) {
         res.status(200).json([])
@@ -22,7 +22,7 @@ router.get('/list-master-cargo',validation,async(req,res)=>{
 
 router.post('/add-master-cargo',validation,async(req,res)=>{
     try {
-        let {rowCount} = await DBP.query('Insert into production.master_cargo(cargo_name,cargo_code) values($1,$2)',[req.body.cargo_name,req.body.cargo_code])
+        let {rowCount} = await DBP.query('Insert into production.master_cargo(cargo_name,cargo_code) values($1,$2)',[req.body.cargo_name.toUpperCase(),req.body.cargo_code])
         res.status(200).json({affected:rowCount,message:''})
     } catch (error) {
         res.status(200).json({affected:-1,message:'Data Not Found'+error})
@@ -31,7 +31,7 @@ router.post('/add-master-cargo',validation,async(req,res)=>{
 
 router.post('/edit-master-cargo',validation,async(req,res)=>{
     try {
-        let {rowCount} = await DBP.query('UPDATE production.master_cargo set cargo_name=$1,cargo_code=$2 where cargo_id=$3',[req.body.cargo_name,req.body.cargo_code,req.body.cargo_id])
+        let {rowCount} = await DBP.query('UPDATE production.master_cargo set cargo_name=$1,cargo_code=$2 where cargo_id=$3',[req.body.cargo_name.toUpperCase(),req.body.cargo_code,req.body.cargo_id])
         res.status(200).json({affected:rowCount})
     } catch (error) {
         res.status(200).json({affected:-1,message:error})
