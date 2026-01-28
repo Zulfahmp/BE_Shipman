@@ -1,23 +1,39 @@
 const { Pool } = require('pg');
-require('dotenv').config(); // Loa
+
+
+
 module.exports = {
-    DBP: () => {
-        try{
-            return new Pool({
-                // host: 'pertamina-db.c1c6cu2im0v3.ap-southeast-2.rds.amazonaws.com',
-                host: 'localhost',
-                user: 'postgres',
-                password : 'postgres',
-                // password: 'PPPertamina1',
-                database: 'pertamina',
-                port: 5432,
-                ssl :false
-                // ssl: {
-                //     rejectUnauthorized: false // Railway butuh SSL
-                // }
-            });
-        }catch(err){
-            return err
-        }
-    },
-}
+
+  DBP: () => {
+
+    try {
+
+      return new Pool({
+
+        host: process.env.DB_HOST,
+
+        user: process.env.DB_USER,
+
+        password: process.env.DB_PASSWORD,
+
+        database: process.env.DB_NAME,
+
+        port: process.env.DB_PORT,
+
+        ssl: false
+
+      });
+
+    } catch (err) {
+
+      console.error('DB connection error:', err);
+
+      throw err;
+
+    }
+
+  },
+
+};
+
+

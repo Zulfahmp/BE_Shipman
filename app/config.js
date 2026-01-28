@@ -1,52 +1,89 @@
-require('dotenv').config()
-var express = require('express');
-var app = express();
-const cors = require('cors');
-var path = require('path');
+require('dotenv').config();
 
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+
+const app = express();
+
+/* =====================
+   CORS CONFIG
+===================== */
 const allowedOrigins = [
   'http://localhost:5173',
+  'https://shipman.my.id',      // FE production
+  'https://www.shipman.my.id'  // FE www (penting)
 ];
 
 const corsOptions = {
-  origin: function (origin, callback) {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-          callback(null, true);
-      } else {
-          callback(new Error(403), false);
-      }
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('403'));
+    }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization','vrapi_token'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'vrapi_token']
 };
-
 app.use(cors(corsOptions));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/nf', express.static(path.join(__dirname, '../public/nf')));
+app.options('*', cors(corsOptions));
+
+/* =====================
+   BODY PARSER
+===================== */
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '200mb' }));
-app.use('/error', require('../errors.js'))
 
+/* =====================
+   STATIC FILES
+===================== */
+app.use(express.static(path.join(__dirname, '../public')));
+app.use('/nf', express.static(path.join(__dirname, '../public/nf')));
+
+/* =====================
+   CUSTOM ERROR ROUTE
+===================== */
+app.use('/error', require('../errors.js'));
+
+/* =====================
+   GLOBAL ERROR HANDLER
+===================== */
 app.use((err, req, res, next) => {
-  if(err.message==403){
-    res.status(403).send({status:403, message: 'Forbidden Here!'})
-  }else{
-    next()
+  if (err.message === '403') {
+    return res.status(403).json({
+      status: 403,
+      message: 'Forbidden Here!'
+    });
   }
-})
 
-function startServer(){
-  app.use((req, res, next) => {
-    res.status(404).json({status:404,message: 'Not Found!'});
+  console.error(err);
+  res.status(500).json({
+    status: 500,
+    message: err.message || 'Internal Server Error'
   });
-  app.listen(process.env.PORT || 3000,'0.0.0.0', async() => {
-    console.log('Server is running',process.env.PORT);
-  });
-}
+});
 
-module.exports={
-    app:app,
-    path:path,
-    express : express,
-    startServer : startServer
-}
+/* =====================
+   START SERVER
+===================== */
+const startServer = () => {
+  const PORT = process.env.PORT || 3000;
+
+  // 404 handler (PALING AKHIR)
+  app.use((req, res) => {
+    res.status(404).json({
+      status: 404,
+      message: 'Not Found!'
+    });
+  });
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`í ½íº€ Server running on port ${PORT}`);
+  });
+};
+
+module.exports = {
+  app,
+  startServer
+};
