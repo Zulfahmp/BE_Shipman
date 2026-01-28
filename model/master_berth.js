@@ -14,6 +14,8 @@ router.get("/total-master-berth", validation, async (req, res) => {
 
 router.get("/list-master-berth", validation, async (req, res) => {
   try {
+    let where = "";
+
     if (req.query.search && /^[^=!;]*$/.test(req.query.search)) {
       const columns = ["berth_name", "berth_code"];
       const search = req.query.search.replace(/[=!;]/g, "").toLowerCase();

@@ -24,6 +24,7 @@ async function random8Char(password) {
 router.get("/list-users", validation, async (req, res) => {
   try {
     let where = "";
+
     if (req.query.search && /^[^=!;]*$/.test(req.query.search)) {
       const columns = ["full_name", "email"];
       const search = req.query.search.replace(/[=!;]/g, "").toLowerCase();

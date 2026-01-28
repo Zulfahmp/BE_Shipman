@@ -14,8 +14,17 @@ router.get("/total-master-ship", validation, async (req, res) => {
 
 router.get("/list-master-ship", validation, async (req, res) => {
   try {
+    let where = "";
+
+    if (req.query.search && /^[^=!;]*$/.test(req.query.search)) {
+      const columns = ["ship_name", "ship_code"];
+      const search = req.query.search.replace(/[=!;]/g, "").toLowerCase();
+      where =
+        "AND" +
+        ` (${columns.map((col, i) => `LOWER(${col}) LIKE '%${search}%'`).join(" OR ")})`;
+    }
     let { rows } = await DBP.query(
-      "select ship_id,ship_name,ship_code from production.master_ship where deleted_at IS NULL order by ship_name",
+      `select ship_id,ship_name,ship_code from production.master_ship where deleted_at IS NULL ${where} order by ship_name`,
     );
     res.status(200).json(rows);
   } catch (error) {
