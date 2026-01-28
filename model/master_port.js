@@ -14,6 +14,8 @@ router.get("/total-master-port", validation, async (req, res) => {
 
 router.get("/list-master-port", validation, async (req, res) => {
   try {
+    let where = "";
+
     if (req.query.search && /^[^=!;]*$/.test(req.query.search)) {
       const columns = ["port_name", "port_code"];
       const search = req.query.search.replace(/[=!;]/g, "").toLowerCase();
