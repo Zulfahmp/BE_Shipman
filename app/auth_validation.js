@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 // hash password
 async function hashPassword(password) {
   const saltRounds = 10; // semakin besar, semakin aman tapi lebih lambat
@@ -12,4 +12,4 @@ async function checkPassword(password, hashedPassword) {
   return match; // true kalau cocok
 }
 
-export {hashPassword,checkPassword}
+export { hashPassword, checkPassword };

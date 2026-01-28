@@ -10,19 +10,19 @@ let transporter = nodemailer.createTransport({
 });
 
 // Kirim email
-async function sendEmail(to,subject,html) {
+async function sendEmail(to, subject, html) {
   try {
     let info = await transporter.sendMail({
       from: '"RENMAILER',
       to: to,
       subject: subject,
-    //   text: "Halo, ini pesan plain text!",
+      //   text: "Halo, ini pesan plain text!",
       html: html,
     });
-    return true
+    return true;
     // return info.messageId;
   } catch (err) {
-    return false
+    return false;
   }
 }
-export{sendEmail}
+export { sendEmail };

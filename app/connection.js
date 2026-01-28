@@ -1,15 +1,9 @@
-const { Pool } = require('pg');
-
-
+const { Pool } = require("pg");
 
 module.exports = {
-
   DBP: () => {
-
     try {
-
       return new Pool({
-
         host: process.env.DB_HOST,
 
         user: process.env.DB_USER,
@@ -20,20 +14,12 @@ module.exports = {
 
         port: process.env.DB_PORT,
 
-        ssl: false
-
+        ssl: false,
       });
-
     } catch (err) {
-
-      console.error('DB connection error:', err);
+      console.error("DB connection error:", err);
 
       throw err;
-
     }
-
   },
-
 };
-
-

@@ -1,9 +1,9 @@
-const express = require('express')
-const validation = require('./token_validation.js')
+const express = require("express");
+const validation = require("./token_validation.js");
 
-const DBP = require('./connection.js').DBP()
+const DBP = require("./connection.js").DBP();
 const router = express.Router();
-const  status_500 = {status:500, message: 'Something Wrong'}
+const status_500 = { status: 500, message: "Something Wrong" };
 function Timestamp(date = new Date()) {
   const pad = (n) => n.toString().padStart(2, "0");
 
@@ -17,11 +17,11 @@ function Timestamp(date = new Date()) {
 
   return `${year}-${month}-${day}`;
 }
-module.exports ={
-    express : express,
-    validation : validation,
-    DBP : DBP,
-    router : router,
-    status_500,
-    Timestamp:Timestamp
-}
+module.exports = {
+  express: express,
+  validation: validation,
+  DBP: DBP,
+  router: router,
+  status_500,
+  Timestamp: Timestamp,
+};
