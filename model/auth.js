@@ -22,6 +22,9 @@ router.post("/authorization-checking", async (req, res) => {
       `select full_name,position,email,password,role from production.users where email=$1`,
       [req.body.email],
     );
+    if (rows.length === 0) {
+      return res.json({ authenticated: false });
+    }
     let is_valid = await checkPassword(req.body.password, rows[0].password);
     let user = rows[0];
     let userjwt = {
