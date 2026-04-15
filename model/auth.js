@@ -16,6 +16,7 @@ router.get("/send_email", validation, async (req, res) => {
 
 // #-----Kode Baru-----#
 router.post("/authorization-checking", async (req, res) => {
+  console.log("🚀 HIT AUTHORIZATION CHECKING"); // ⬅️ TAMBAHKAN INI
   try {
     const email = req.body.email?.trim();
     const password = req.body.password?.trim();
