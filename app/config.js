@@ -11,8 +11,9 @@ const app = express();
 ===================== */
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://shipman.my.id", // FE production
-  "https://www.shipman.my.id", // FE www (penting)
+  "feshipman-production.up.railway.app",
+  // "https://shipman.my.id", // FE production
+  // "https://www.shipman.my.id", // FE www (penting)
 ];
 
 const corsOptions = {
