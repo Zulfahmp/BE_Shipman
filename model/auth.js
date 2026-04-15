@@ -146,9 +146,30 @@ router.post("/authorization-checking", async (req, res) => {
   }
 });
 
-router.get("/check", validation, async (req, res) => {
-  let { rows } = await DBP.query("select * from production.users");
-  res.status(200).json(rows);
+// router.get("/check", validation, async (req, res) => {
+//   let { rows } = await DBP.query("select * from production.users");
+//   res.status(200).json(rows);
+// });
+
+router.get("/check", async (req, res) => {
+  console.log("🚀 HIT /check");
+
+  try {
+    const result = await DBP.query("SELECT NOW()");
+    console.log("DB CONNECTED:", result.rows);
+
+    return res.status(200).json({
+      success: true,
+      time: result.rows,
+    });
+  } catch (err) {
+    console.log("DB ERROR:", err);
+
+    return res.status(500).json({
+      success: false,
+      error: err.message,
+    });
+  }
 });
 
 router.post("/authorization-validation", validation, async (req, res) => {
