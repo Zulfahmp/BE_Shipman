@@ -70,16 +70,10 @@ app.use((err, req, res, next) => {
 const startServer = () => {
   const PORT = process.env.PORT || 3000;
 
-  // 404 handler (PALING AKHIR)
-  app.use((req, res) => {
-    res.status(404).json({
-      status: 404,
-      message: "Not Found!",
-    });
-  });
+  console.log("PORT:", PORT);
 
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`������ Server running on port ${PORT}`);
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
   });
 };
 
