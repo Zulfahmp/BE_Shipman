@@ -46,6 +46,11 @@ router.post("/authorization-checking", async (req, res) => {
     const user = rows[0];
 
     // ✅ cek password (pakai bcrypt)
+    // const is_valid = await checkPassword(password, user.password);
+    console.log("USER DARI DB:", user);
+    console.log("PASSWORD INPUT:", password);
+    console.log("PASSWORD DB:", user.password);
+
     const is_valid = await checkPassword(password, user.password);
 
     if (!is_valid) {
