@@ -10,7 +10,7 @@
 // module.exports = {
 //   DBP: () => pool,
 // };
-
+// cel aja
 const { Pool } = require("pg");
 
 module.exports = {
