@@ -73,7 +73,7 @@ const startServer = () => {
   console.log("PORT:", PORT);
 
   app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`🚀 Server runningg on port ${PORT}`);
   });
 };
 
