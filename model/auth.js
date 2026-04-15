@@ -3,7 +3,7 @@ const DBP = require("../app/connection.js").DBP();
 const { hashPassword, checkPassword } = require("../app/auth_validation");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const { Pool } = require("pg");
+// const { Pool } = require("pg");
 const secretKey = "pertaminamaju"; // Store this in env variables, not in code
 const email = require("../app/emailsender.js");
 router.get("/test", validation, async (req, res) => {
