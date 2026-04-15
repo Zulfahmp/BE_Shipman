@@ -90,7 +90,7 @@ router.post("/authorization-checking", async (req, res) => {
       role: user.role,
     });
   } catch (err) {
-    err ? res.json(status_500) : res.json({ authenticated: false });
+    console.error("ERROR AUTH:", err);
 
     return res.status(500).json({
       authenticated: false,
