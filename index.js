@@ -1,8 +1,8 @@
 require("dotenv").config();
 
-console.log("DB USER:", process.env.DB_USER);
+console.log("DB USER:", process.env.PGUSER);
 
-console.log("DB NAME:", process.env.DB_NAME);
+console.log("DB NAME:", process.env.PGDATABASE);
 
 console.log("🚀 STEP 1: index.js loaded");
 
